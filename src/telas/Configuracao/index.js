@@ -1,11 +1,12 @@
 import { Text, View, Switch } from "react-native";
-import { estilo } from "./estilos";
-import { useState, useContext } from "react";
+import { estilos } from "./estilos";
+import { useContext } from "react";
 import { TemaConext } from "../../contexts/TemaContext";
 
 export default function Configuracao({ navigation }) {
-  const [estado, setEstado] = useState(true);
-  const { temaAtual, setTemaAtual } = useContext(TemaConext);
+  const { temaAtual, setTemaAtual, temaEscolhido } = useContext(TemaConext);
+
+  const estilo = estilos(temaEscolhido);
 
   return (
     <View style={estilo.container}>
@@ -13,7 +14,10 @@ export default function Configuracao({ navigation }) {
 
       <View style={estilo.inputArea}>
         <Text style={estilo.subtitulo}>Tema: {temaAtual}</Text>
-        <Switch onValueChange={() => (temaAtual === "escuro" ? setTemaAtual("claro") : setTemaAtual("escuro"))} value={temaAtual === "escuro" ? true : false} />
+        <Switch
+          onValueChange={() => (temaAtual === "escuro" ? setTemaAtual("claro") : setTemaAtual("escuro"))}
+          value={temaAtual === "escuro" ? true : false}
+        />
       </View>
     </View>
   );
